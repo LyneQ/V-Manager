@@ -2,10 +2,11 @@
 pnpm-lock.yaml
 
 # IDE directories
-
-.idea/*
+.idea/
+*/.idea/*
   !.idea/workspace.xml
   !.idea/modules.xml
 
 # Other
 node_modules
+.env
