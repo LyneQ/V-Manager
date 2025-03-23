@@ -1,0 +1,8 @@
+# Lock file
+pnpm-lock.yaml
+
+# IDE directories
+.idea/
+
+# Other
+node_modules
