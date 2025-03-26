@@ -22,9 +22,20 @@ type User struct {
 	LastUpdate   int64  `json:"last_update"`
 }
 
+type RegisterBody struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
 var secretKey = []byte(os.Getenv("JWT_SECRET_KEY"))
 
 func Register(c *gin.Context) {
+
+	var body RegisterBody
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+	}
 
 	var userId = generateId()
 	var accessToken, _ = generateToken(userId, "accessToken")
@@ -33,9 +44,9 @@ func Register(c *gin.Context) {
 	//TODO: change hardCoded string by getting info in request body
 	var user User = User{
 		Id:           userId,
-		Username:     "Test user",
-		Password:     "password",
-		Email:        "test@user.com",
+		Username:     body.Username,
+		Password:     body.Password,
+		Email:        body.Email,
 		Role:         "User",
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
